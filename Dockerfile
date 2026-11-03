@@ -1,4 +1,3 @@
-
 # 第一阶段：构建 Vue 项目
 FROM node:26-alpine AS builder
 
@@ -23,6 +22,12 @@ FROM nginx:alpine AS production
 
 # 删除 Nginx 默认页面
 RUN rm -rf /usr/share/nginx/html/*
+
+# 删除默认配置
+RUN rm -f /etc/nginx/conf.d/default.conf
+
+# 复制自定义 Nginx 配置
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 复制 Vue 构建产物
 COPY --from=builder /app/dist /usr/share/nginx/html
