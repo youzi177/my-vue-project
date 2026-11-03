@@ -1,0 +1,15 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-vue-project:latest
+    container_name: my-vue-project
+    ports:
+      - "8080:80"
+
+    restart: unless-stopped
+networks:
+  default:
+    external:
+      name: https
